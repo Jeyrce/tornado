@@ -937,7 +937,7 @@ class TestIOStreamSSLContext(TestIOStreamMixin, AsyncTestCase):
 class TestIOStreamStartTLS(AsyncTestCase):
     def setUp(self):
         try:
-            super(TestIOStreamStartTLS, self).setUp()
+            super().setUp()
             self.listener, self.port = bind_unused_port()
             self.server_stream = None
             self.server_accepted = Future()  # type: Future[None]
@@ -962,7 +962,7 @@ class TestIOStreamStartTLS(AsyncTestCase):
             self.client_stream.close()
         self.io_loop.remove_handler(self.listener.fileno())
         self.listener.close()
-        super(TestIOStreamStartTLS, self).tearDown()
+        super().tearDown()
 
     def accept(self, connection, address):
         if self.server_stream is not None:

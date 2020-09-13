@@ -111,7 +111,7 @@ class BaseAsyncIOLoop(IOLoop):
 
         self._thread_identity = 0
 
-        super(BaseAsyncIOLoop, self).initialize(**kwargs)
+        super().initialize(**kwargs)
 
         def assign_thread_identity() -> None:
             self._thread_identity = threading.get_ident()
@@ -272,7 +272,7 @@ class AsyncIOMainLoop(BaseAsyncIOLoop):
     """
 
     def initialize(self, **kwargs: Any) -> None:  # type: ignore
-        super(AsyncIOMainLoop, self).initialize(asyncio.get_event_loop(), **kwargs)
+        super().initialize(asyncio.get_event_loop(), **kwargs)
 
     def make_current(self) -> None:
         # AsyncIOMainLoop already refers to the current asyncio loop so
@@ -304,7 +304,7 @@ class AsyncIOLoop(BaseAsyncIOLoop):
         self.is_current = False
         loop = asyncio.new_event_loop()
         try:
-            super(AsyncIOLoop, self).initialize(loop, **kwargs)
+            super().initialize(loop, **kwargs)
         except Exception:
             # If initialize() does not succeed (taking ownership of the loop),
             # we have to close it.
@@ -314,7 +314,7 @@ class AsyncIOLoop(BaseAsyncIOLoop):
     def close(self, all_fds: bool = False) -> None:
         if self.is_current:
             self.clear_current()
-        super(AsyncIOLoop, self).close(all_fds=all_fds)
+        super().close(all_fds=all_fds)
 
     def make_current(self) -> None:
         if not self.is_current:
